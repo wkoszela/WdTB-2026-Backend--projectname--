@@ -29,4 +29,8 @@ public class TimeEntry {
 
     @Column(nullable = false)
     private boolean billable = true;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private TimeEntryStatus status = TimeEntryStatus.DRAFT;
 }

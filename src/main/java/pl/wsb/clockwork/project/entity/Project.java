@@ -1,4 +1,4 @@
-package pl.wsb.clockwork.Project.entity;
+package pl.wsb.clockwork.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

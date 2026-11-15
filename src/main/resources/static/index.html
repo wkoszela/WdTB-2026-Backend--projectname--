@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Backend działa · WdTB-2026-Backend</title>
+<title>Clockwork · WdTB-2026-Backend</title>
 <style>
   :root { --ink: #141e50; --blue: #006efa; --muted: #5b6685; --line: #d5def0; --bg: #f5f8fd; --tint: #e8f0ff; --ok: #1d7a4c; }
   * { box-sizing: border-box; }
@@ -38,13 +38,9 @@
     <img class="logo" src="merito-logo.png" alt="Uniwersytet WSB Merito Wrocław">
     <span class="status"><span class="dot" aria-hidden="true"></span>Backend działa</span>
     <h1>Wprowadzenie do technologii backendowych</h1>
-    <p>Tę stronę serwuje Wasza aplikacja Spring Boot z pliku <code>src/main/resources/static/index.html</code>.
-       Na LAB 01 wypełnijcie poniższą wizytówkę projektu. LAB 02 zaczyna się od jej prezentacji:
-       uruchamiacie aplikację i pokazujecie tę stronę.</p>
+    <p>Tę stronę serwuje aplikacja Spring Boot projektu Clockwork z pliku <code>src/main/resources/static/index.html</code>.</p>
   </header>
 
-  <!-- LAB 01: wizytówka Waszego projektu, na jej podstawie prezentujecie projekt na początku LAB 02.
-       Zastąpcie wszystkie znaczniki „uzupełnij” w nawiasach kwadratowych (reguła R1.04). -->
   <section class="card project">
     <h2>ClockWork</h2>
     <p class="pitch">Clockwork to prosta aplikacja do śledzenia czasu pracy, która pozwala użytkownikom mierzyć czas, przypisywać go do zadań i projektów oraz generować raporty</p>
@@ -57,15 +53,17 @@
     </table>
     <h3>Zmiany w projekcie</h3>
     <ul>
-      <li><b>LAB 01:</b> Zmiany w ramach lab1: nazwa projektu, konta zespołu, wizytówka</li>
-      <li><b>LAB 02:</b> Dodano encje i dane startowe w bazie dla tabel: <code>client</code>, <code>project</code>, <code>time_entry</code></li>
+      <li><b>LAB 01:</b> nazwa projektu, konta zespołu, wizytówka</li>
+      <li><b>LAB 02:</b> encje i dane startowe dla tabel <code>client</code>, <code>project</code>, <code>time_entry</code>;
+        status wpisu czasu jako enum <code>TimeEntryStatus</code> (<code>@Enumerated(EnumType.STRING)</code>),
+        adres do faktury klienta jako klasa wbudowana <code>Address</code> (<code>@Embeddable</code> / <code>@Embedded</code>)</li>
     </ul>
-    <p class="muted">Na kolejnych laboratoriach dopisujcie tu kolejne punkty.</p>
   </section>
 
   <section class="card">
     <h2>1. Zajrzyjcie do bazy danych</h2>
-    <p>Aplikacja ma wbudowaną bazę H2. Na start jest w niej jedna tabela, <code>user_account</code>, z kontami z pliku <code>data.sql</code>.</p>
+    <p>Aplikacja ma wbudowaną bazę H2 z tabelami <code>user_account</code>, <code>client</code>, <code>project</code> i <code>time_entry</code>.
+       Dane startowe pochodzą z pliku <code>data.sql</code>.</p>
     <table>
       <tr><td>JDBC URL</td><td><code>jdbc:h2:file:./data/wdtb</code></td></tr>
       <tr><td>Użytkownik</td><td><code>sa</code></td></tr>
@@ -73,7 +71,7 @@
     </table>
     <a class="btn" href="/h2-console">Otwórz konsolę H2</a>
     <p class="muted" style="margin-top:12px">Spróbujcie zapytania:</p>
-    <pre>SELECT role, COUNT(*) FROM user_account GROUP BY role;</pre>
+    <pre>SELECT status, SUM(duration_minutes) FROM time_entry GROUP BY status;</pre>
   </section>
 
   <section class="card">

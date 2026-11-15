@@ -27,4 +27,7 @@ public class Client {
 
     @Column(nullable = false)
     private boolean active = true;
+
+    @Embedded
+    private Address billingAddress;
 }
